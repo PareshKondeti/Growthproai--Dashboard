@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import BusinessForm from './BusinessForm'
 import BusinessCard from './BusinessCard'
-import { MapPin, Building2 } from 'lucide-react'
+import { MapPin, Building2 } from 'lucide-react' 
+const BASE_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3001'
+
 
 const Dashboard = () => {
   const [businessData, setBusinessData] = useState(null)
@@ -10,7 +12,7 @@ const Dashboard = () => {
   const handleBusinessSubmit = async (formData) => {
     setIsLoading(true)
     try {
-      const response = await fetch('/api/business-data', {
+      const response = await fetch(`${BASE_URL}/business-data`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -38,7 +40,7 @@ const Dashboard = () => {
     setIsLoading(true)
     try {
       const response = await fetch(
-        `/api/regenerate-headline?name=${encodeURIComponent(businessData.name)}&location=${encodeURIComponent(businessData.location)}`
+        `${BASE_URL}/regenerate-headline?name=${encodeURIComponent(businessData.name)}&location=${encodeURIComponent(businessData.location)}`
       )
       
       if (!response.ok) {
